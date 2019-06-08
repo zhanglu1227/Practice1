@@ -1,9 +1,15 @@
 
 # 1、一行代码实现1--100之和，利用sum()函数求和
 a = sum(range(1, 101))
-print(a)
+print('第1题',a)
 
 # 2、如何在一个函数内部修改全局变量 利用global 修改全局变量
+a = 1
+def add():
+    global a
+    a = a + 1
+    print('第2题',a)
+add()
 
 # 3、列出5个python标准库
 # 答：os、unittest、requests、xlrd、xlutlsi
@@ -13,17 +19,20 @@ dic1 = {'a':3, 'b':'19', 'c':'aaa'}
 dic2 = {'d':'123','f':'xiaoming'}
 # 删除
 del(dic1['a'])
-print(dic1)
+print('第4题01',dic1)
 # 合并
 dic3 = {}
 dic3.update(dic1)
 dic3.update(dic2)
-print(dic3)
+print('第4题02',dic3)
 
 # 5、谈下python的GIL
+# 答：GIL 是python的全局解释器锁，同一进程中假如有多个线程运行，一个线程在运行python程序的时候会霸占python解释器（加了一把锁即GIL），
+# 使该进程内的其他线程无法运行，等该线程运行完后其他线程才能运行。如果线程运行过程中遇到耗时操作，则解释器锁解开，使其他线程运行。
+# 所以在多线程中，线程的运行仍是有先后顺序的，并不是同时进行。
 
 # 6、python实现列表去重的方法
-# 答：用set
+# 答：set方法
 
 # 7、fun(*args,**kwargs)中的*args,**kwargs什么意思？
 # 答：*args是可变参数，**kwargs是关键字参数
@@ -32,25 +41,51 @@ print(dic3)
 # 答：python2中的range返回的是一个列表，python3中的range返回的是一个迭代值
 
 # 9、一句话解释什么样的语言能够用装饰器?
+# 答：函数可以作为参数传递的语言，可以使用装饰器
 
 # 10、python内建数据类型有哪些？
+# 答：整型--int、布尔型--bool、字符串--str、列表--list、元组--tuple、字典--dict
 
 # 11、简述面向对象中__new__和__init__区别
+# 答：__init__是当实例对象创建完成后被调用的，然后设置对象属性的一些初始值。
+# __new__是在实例创建之前被调用的，因为它的任务就是创建实例然后返回该实例，是个静态方法
+# __init__有一个参数self，就是这个__new__返回的实例
+# __new__必须要有返回值，返回实例化出来的实例
 
 # 12、简述with方法打开处理文件帮我我们做了什么？
+# 答：打开文件在进行读写的时候可能会出现一些异常状况，常规的f.open写，我们需要try,excpet,finally做异常判断，
+# 并且文件最终不管遇到什么情况，都要执行finally f.close()关闭文件，with方法帮我们实现了finally中的f.close()
 
 # 13、列表[1,2,3,4,5],请使用map()函数输出[1,4,9,16,25]，并使用列表推导式提取出大于10的数，最终输出[16,25]
 
 # 14、python中生成随机整数、随机小数、0--1之间小数方法
+# 答：随机整数：random.randint(a,b)  区间整数
+# 随机小数：用numpy库，利用np.random.randn(5)  生成5个随机小数
+# 0-1随机小数：random.random(),注：括号内不传参
 
 # 15、避免转义给字符串加哪个字母表示原始字符串？
+# 答：加r
 
 # 16、<div class="nam">中国</div>，用正则匹配出标签里面的内容（“中国”），其中class的类名是不确定的
+# 答：re.findall(pattern, string[, flags])  返回string中所有与pattern相匹配的全部字串，返回形式为数组。
+import re
+str1 = '<div class="nam">中国</div>'
+re1 = re.findall(r'<div class=".*">(.*?)</div>',str1)
+print('第16题',re1)
 
 # 17、python中断言方法举例
+# 答：assert（）方法，断言成功，则程序继续执行，断言失败，则程序报错
+# assertEqual：如两个值相等，则pass
+# assertNotEqual：如两个值不相等，则pass
+# assertTrue：判断bool值为True，则pass
+# assertFalse：判断bool值为False，则Pass
 
 # 20、python2和python3区别？列举5个
-# 答：python2 print打印不加括号，python3 print打印要加括号
+# 答：1、python2 print打印不加括号，python3 print打印要加括号
+# 2、python2中是raw_input()函数，python3中是input()函数
+# 3、python2 range(1,10)返回列表，python3中返回迭代器，节约内存
+# 4、python2中unicode表示字符串序列，str表示字节序列
+# 5、python2中为正常显示中文，引入coding声明，python3中不需要
 
 # 21、列出python中可变数据类型和不可变数据类型，并简述原理
 # 数据类型有：整型，字符串，元组，集合，列表，字典
@@ -60,6 +95,116 @@ print(dic3)
 # 22、s = "ajldjlajfdljfddd"，去重并从小到大排序输出"adfjl"
 s = "ajldjlajfdljfddd"
 a = set(s)
-print(sorted(a))
+print('第22题',sorted(a))
 
 # 23、用lambda函数实现两个数相乘
+# 答：Lambda函数，是一个匿名函数，创建语法：lambda 参数:表达式
+sum1 = lambda a,b:a*b
+print('第23题',sum1(7,8))
+
+# 24、字典根据键从小到大排序dict={"name":"zs","age":18,"city":"深圳","tel":"1362626627"}
+
+# 25、利用collections库的Counter方法统计字符串每个单词出现的次数"kjalfj;ldsjafl;hdsllfdhg;lahfbl;hl;ahlf;h"
+
+# 26、字符串a = "not 404 found 张三 99 深圳"，每个词中间是空格，用正则过滤掉英文和数字，最终输出"张三  深圳"
+
+# 27、filter方法求出列表所有奇数并构造新列表，a =  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# 28、列表推导式求列表所有奇数并构造新列表，a =  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# 29、正则re.complie作用
+
+
+# 30、a=（1，）b=(1)，c=("1") 分别是什么类型的数据？
+# 答：a:元祖，b:整数，c:字符串
+a = (1,)
+b = (1)
+c = ('1')
+print('第30题',type(a))
+print('第30题',type(b))
+print('第30题',type(c))
+
+# 31、两个列表[1,5,7,9]和[2,2,6,8]合并为[1,2,2,5,6,7,8,9]
+list1 = [1,5,7,9]
+list2 = [2,2,6,8]
+list1.extend(list2)
+print('第31题',list1)
+# list3 = list1 + list2
+print('第31题',sorted(list1))
+
+# 32、用python删除文件和用linux命令删除文件方法
+# 答：python删除文件：os.remove
+# linux删除文件：rm
+
+# 33、log日志中，我们需要用时间戳记录error,warning等的发生时间，请用datetime模块打印当前时间戳 “2018-04-01 11:38:54”
+
+# 36、写一段自定义异常代码
+
+# 37、正则表达式匹配中，（.*）和（.*?）匹配区别？
+
+# 39、[[1,2],[3,4],[5,6]]一行代码展开该列表，得出[1,2,3,4,5,6]
+a = [[1,2],[3,4],[5,6]]
+b = [j for i in a for j in i]
+print('第39题',b)
+
+# 41、举例说明异常模块中try except else finally的相关意义
+
+# 42、python中交换两个数值
+a,b = 5,6
+print('第42题',a,b)
+a,b = b,a
+print('第42题',a,b)
+
+# 43、举例说明zip（）函数用法
+
+# 44、a="张明 98分"，用re.sub，将98替换为100
+# 46、a="hello"和b="你好"编码成bytes类型
+# 47、[1,2,3]+[4,5,6]的结果是多少？
+a = [1,2,3]
+b = [4,5,6]
+print('第47题',a+b)
+# 52、list=[2,3,5,4,9,6]，从小到大排序，不许用sort，输出[2,3,4,5,6,9]
+# 53、写一个单列模式
+# 54、保留两位小数
+# 58、使用pop和del删除字典中的"name"字段，dic={"name":"zs","age":18}
+dic = {"name":"zs","age":18}
+# del dic["name"]
+# print('第58题',dic)
+dic.pop("name")
+print('第58题',dic)
+
+# 65、IOError、AttributeError、ImportError、IndentationError、IndexError、KeyError、SyntaxError、NameError分别代表什么异常
+# 66、python中copy和deepcopy区别
+# 69、请将[i for i in range(3)]改成生成器
+# 70、a = "  hehheh  ",去除收尾空格
+# 77、根据键对字典排序（方法一，zip函数）
+# 78、根据键对字典排序（方法二,不用zip)
+# 82、s="info:xiaoZhang 33 shandong",用正则切分字符串输出['info', 'xiaoZhang', '33', 'shandong']
+# 83、正则匹配以163.com结尾的邮箱
+# 84、递归求和
+# 85、python字典和json字符串相互转化方法
+# 87、统计字符串中某字符出现次数
+# 88、字符串转化大小写
+a = 'AAAbbb'
+print('第88题',a.upper())
+print('第88题',a.lower())
+
+# 89、用两种方法去空格
+str1 = 'hello world hello python'
+# 方法一
+a = str1.replace(' ','')
+print('第89题',a)
+# 方法二
+str2 = str1.split(' ')
+b = ''.join(str2)
+print('第89题',b)
+
+# 90、正则匹配不是以4和7结尾的手机号
+# 97、r、r+、rb、rb+文件打开模式区别
+# 99、正则表达式匹配出<html><h1>www.itcast.cn</h1></html>
+# 100、python传参数是传值还是传址？
+
+
+
+
+
