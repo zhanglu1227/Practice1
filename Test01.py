@@ -109,11 +109,21 @@ print('第23题',sum1(7,8))
 # 26、字符串a = "not 404 found 张三 99 深圳"，每个词中间是空格，用正则过滤掉英文和数字，最终输出"张三  深圳"
 
 # 27、filter方法求出列表所有奇数并构造新列表，a =  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# 答：filter() 函数用于过滤序列，过滤掉不符合条件的元素，返回由符合条件元素组成的新列表
+a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+def fn(a):
+    return a % 2 ==1
+lis1 = filter(fn,a)
+lis1 = [i for i in lis1]
+print('第27题',lis1)
 
 # 28、列表推导式求列表所有奇数并构造新列表，a =  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+str1 = [i for i in a if i%2==1]
+print('第28题',str1)
 
 # 29、正则re.complie作用
-
+# 答：re.compile是将正则表达式编译成一个对象，加快速度，并重复使用
 
 # 30、a=（1，）b=(1)，c=("1") 分别是什么类型的数据？
 # 答：a:元祖，b:整数，c:字符串
@@ -139,6 +149,14 @@ print('第31题',sorted(list1))
 # 33、log日志中，我们需要用时间戳记录error,warning等的发生时间，请用datetime模块打印当前时间戳 “2018-04-01 11:38:54”
 
 # 36、写一段自定义异常代码
+def fn():
+    try:
+        for i in range(5):
+            if i > 2:
+                raise Exception('数字大于2')
+    except Exception as msg:
+        print('第36题',msg)
+fn()
 
 # 37、正则表达式匹配中，（.*）和（.*?）匹配区别？
 
@@ -158,7 +176,20 @@ print('第42题',a,b)
 # 43、举例说明zip（）函数用法
 
 # 44、a="张明 98分"，用re.sub，将98替换为100
+# 答：re.sub，实现正则的替换
+import re
+a="张明 98分"
+s = re.sub(r'\d+','100',a)
+print('第44题',s)
+
 # 46、a="hello"和b="你好"编码成bytes类型
+a="hello"
+b="你好"
+a = b'hello'
+b = '哈哈'.encode()
+print('第46题',a,b)
+print('第46题',type(a),type(b))
+
 # 47、[1,2,3]+[4,5,6]的结果是多少？
 a = [1,2,3]
 b = [4,5,6]
@@ -175,15 +206,37 @@ print('第58题',dic)
 
 # 65、IOError、AttributeError、ImportError、IndentationError、IndexError、KeyError、SyntaxError、NameError分别代表什么异常
 # 66、python中copy和deepcopy区别
+
 # 69、请将[i for i in range(3)]改成生成器
-# 70、a = "  hehheh  ",去除收尾空格
+# 答：列表表达式的【】改为（）即可变成生成器
+a = (i for i in range(3))
+print('第69题',type(a))
+
+# 70、a = "  hehheh  ",去除首尾空格
+a = "  hehheh  "
+print('第70题',a.strip())
+
 # 77、根据键对字典排序（方法一，zip函数）
 # 78、根据键对字典排序（方法二,不用zip)
 # 82、s="info:xiaoZhang 33 shandong",用正则切分字符串输出['info', 'xiaoZhang', '33', 'shandong']
 # 83、正则匹配以163.com结尾的邮箱
 # 84、递归求和
 # 85、python字典和json字符串相互转化方法
+# 答：dumps是将dict转化成str格式，loads是将str转化成dict格式
+import json
+dic1 = {'name':'xiaoming','age':22}
+# 字典转字符串
+str1 = json.dumps(dic1)
+print('第85题',str1,type(str1))
+# 字符串转字典
+dic2 = json.loads(str1)
+print('第85题',dic2,type(dic2))
+
 # 87、统计字符串中某字符出现次数
+str1 = 'asfdsafsafddderwerkggg'
+a = str1.count('a')
+print('第87题',a)
+
 # 88、字符串转化大小写
 a = 'AAAbbb'
 print('第88题',a.upper())
@@ -200,7 +253,20 @@ b = ''.join(str2)
 print('第89题',b)
 
 # 90、正则匹配不是以4和7结尾的手机号
+import re
+lis1 = ['13478490984','13948790007','10003','13234905545']
+for i in lis1:
+    ret = re.match('1\d{9}[0-3,5-6,8-9]',i)
+    if ret:
+        print('第90题','想要的结果',ret.group())
+    else:
+        print('第90题','%s 不是想要的手机号'%i)
+
 # 97、r、r+、rb、rb+文件打开模式区别
+# 答：r:以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。
+# r+：打开一个文件用于读写。文件的指针将会放在文件的开头
+# rb:以二进制格式打开一个文件用于只读。文件的指针将会放在文件的开头，这是默认模式
+
 # 99、正则表达式匹配出<html><h1>www.itcast.cn</h1></html>
 # 100、python传参数是传值还是传址？
 
