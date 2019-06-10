@@ -166,6 +166,24 @@ b = [j for i in a for j in i]
 print('第39题',b)
 
 # 41、举例说明异常模块中try except else finally的相关意义
+# 答：try..except..else没有捕获到异常，执行else语句
+# try..except..finally不管是否捕获到异常，都执行finally语句
+try:
+    a = 'zzz'
+    print('第41题',a)
+except NameError as msg:
+    print('第41题','错误：%s'%msg)
+else:
+    print('第41题','没有捕获到异常，执行该句')
+
+try:
+    a = 'zAz'
+    print('第41题',a)
+except NameError as msg:
+    print('第41题','错误：%s'%msg)
+finally:
+    print('第41题','不管有没有捕获到异常，都执行该句')
+
 
 # 42、python中交换两个数值
 a,b = 5,6
@@ -194,9 +212,11 @@ print('第46题',type(a),type(b))
 a = [1,2,3]
 b = [4,5,6]
 print('第47题',a+b)
+
 # 52、list=[2,3,5,4,9,6]，从小到大排序，不许用sort，输出[2,3,4,5,6,9]
 # 53、写一个单列模式
 # 54、保留两位小数
+
 # 58、使用pop和del删除字典中的"name"字段，dic={"name":"zs","age":18}
 dic = {"name":"zs","age":18}
 # del dic["name"]
@@ -205,7 +225,28 @@ dic.pop("name")
 print('第58题',dic)
 
 # 65、IOError、AttributeError、ImportError、IndentationError、IndexError、KeyError、SyntaxError、NameError分别代表什么异常
+# 答：IOError：输入输出异常
+# AttributeError：试图访问一个对象没有的属性
+# ImportError：无法引入模块或包，基本是路径问题
+# IndentationError：语法错误，代码没有正确的对齐
+# IndexError：下标索引超出序列边界
+# KeyError:试图访问你字典里不存在的键
+# SyntaxError:Python代码逻辑语法出错，不能执行
+# NameError:使用一个还未赋予对象的变量
+
 # 66、python中copy和deepcopy区别
+# 答：浅拷贝只是拷贝了他们最外面的一层，开辟了一个新的地址，如果是嵌套列表那么他指向的还是原来的列表，嵌套列表的内存地址还是一样的
+# 深拷贝完完全全复制了一份，重新开辟了一个空间，他的内存地址都和之前的不一样
+import copy
+
+a = 'zzz'
+b = a
+c = copy.copy(a)
+d = copy.deepcopy(a)
+print('第66题',a,id(a))
+print('第66题',b,id(b))
+print('第66题',c,id(c))
+print('第66题',d,id(d))
 
 # 69、请将[i for i in range(3)]改成生成器
 # 答：列表表达式的【】改为（）即可变成生成器
@@ -220,7 +261,19 @@ print('第70题',a.strip())
 # 78、根据键对字典排序（方法二,不用zip)
 # 82、s="info:xiaoZhang 33 shandong",用正则切分字符串输出['info', 'xiaoZhang', '33', 'shandong']
 # 83、正则匹配以163.com结尾的邮箱
+
 # 84、递归求和
+def add_sum(num):
+    if num >= 1:
+        sum1 = num + add_sum(num-1)
+    else:
+        sum1 = 0
+
+    return sum1
+
+sum1 = add_sum(10)
+print('第84题',sum1)
+
 # 85、python字典和json字符串相互转化方法
 # 答：dumps是将dict转化成str格式，loads是将str转化成dict格式
 import json
@@ -268,7 +321,23 @@ for i in lis1:
 # rb:以二进制格式打开一个文件用于只读。文件的指针将会放在文件的开头，这是默认模式
 
 # 99、正则表达式匹配出<html><h1>www.itcast.cn</h1></html>
+
 # 100、python传参数是传值还是传址？
+# 答：对于不可变类型（数值型、字符串、元组），因变量不能修改，所以运算不会影响到变量自身；
+# 而对于可变类型（列表字典）来说，函数体运算可能会更改传入的参数变量。
+# python传参数传址
+def addTest(a):
+    a += a
+
+a_int = 1
+print('第100题',a_int)
+addTest(a_int)
+print('第100题',a_int)
+
+a_list = [1,2]
+print('第100题',a_list)
+addTest(a_list)
+print('第100题',a_list)
 
 
 
