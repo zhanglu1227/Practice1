@@ -11,7 +11,7 @@ def sumA(nums,target):
     for i in range(a):
         for j in range(i, a):
             if nums[i] + nums[j] == target:
-                return (i,j)
+                return i, j
 
 nums = [2, 7, 11, 15]
 target = 9
